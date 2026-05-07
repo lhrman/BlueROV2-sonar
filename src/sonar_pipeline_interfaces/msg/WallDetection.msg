@@ -1,0 +1,3 @@
+std_msgs/Header header
+float64 middle_angle_deg
+float64 distance_m

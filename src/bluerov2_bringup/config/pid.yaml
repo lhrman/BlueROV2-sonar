@@ -1,0 +1,98 @@
+# controller_node:
+#   ros__parameters:
+#     kp: 1
+#     ki: 0
+#     kd: 0
+
+
+# # This is the complete and corrected pid.yaml file
+
+# depth_controller:
+#   ros__parameters:
+#     kp: 150.0  
+#     ki: 5.0
+#     kd: 10.0  
+
+# yaw_controller:
+#   ros__parameters:
+#     kp: 250.0 
+#     kd: 7.0   
+
+# # --- ADD THIS ENTIRE SECTION ---
+# input_controller:
+#   ros__parameters:
+#     # This controls how fast the yaw setpoint changes
+#     gain_yaw: 60.0 
+    
+#     # This sets the maximum rise height. 0.0 allows it to reach the surface.
+#     max_rise: 0.0
+
+# This is the complete and correct pid.yaml file
+
+# depth_controller:
+#   ros__parameters:
+#     kp: 150.0  
+#     ki: 5.0
+#     kd: 10.0  
+
+# yaw_controller:
+#   ros__parameters:
+#     kp: 150.0 
+#     kd: 7.0   # Reduced value for smoother turning
+
+# input_controller:
+#   ros__parameters:
+#     # Controls how fast the yaw setpoint changes
+#     gain_yaw: 60.0 
+    
+#     # Sets the maximum rise height. 0.0 allows it to reach the surface.
+#     max_rise: 10.0
+#     move_pwm_range: 100.0
+
+
+# position_controller:
+#   ros__parameters:
+#     # --- X-Axis Control (Forward/Backward relative to pool) ---
+#     kp_x: 100.0  # Start with a moderate proportional gain
+#     ki_x: 0.0    # Set Ki to 0 to mimic joystick (no steady-state correction yet)
+#     kd_x: 0.0    # Set Kd to 0 to mimic joystick (no damping yet)
+
+#     # --- Y-Axis Control (Lateral relative to pool) ---
+#     kp_y: 100.0  # Start with the same gain as X
+#     ki_y: 0.0    # Set Ki to 0
+#     kd_y: 0.0    # Set Kd to 0
+
+# This is the complete pid.yaml file for 25% max speed
+
+depth_controller:
+  ros__parameters:
+    kp: 150.0  
+    ki: 5.0
+    kd: 10.0  
+
+yaw_controller:
+  ros__parameters:
+    kp: 150.0 
+    kd: 7.0 
+
+input_controller:
+  ros__parameters:
+    gain_yaw: 60.0 
+    max_rise: 10.0
+    # This is the speed for MANUAL joystick control
+    move_pwm_range: 100.0
+
+position_controller:
+  ros__parameters:
+    # This is the speed for AUTO position-hold mode
+    # We'll set it to 100.0 to match your manual speed.
+    move_pwm_range: 100.0 
+    
+    # --- Start with reasonable gains ---
+    kp_x: 100.0
+    ki_x: 0.0
+    kd_x: 0.0
+    
+    kp_y: 100.0
+    ki_y: 0.0
+    kd_y: 0.0

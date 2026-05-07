@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<CycloneDDS xmlns="https://cdds.io/config/v0.3"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="https://cdds.io/config/v0.3 https://cdds.io/config/cdds-v0.3.xsd">
+    <Domain>
+        <General>
+            <Interfaces>
+                <NetworkInterface name="wlo1"/>
+            </Interfaces>
+        </General>
+    </Domain>
+</CycloneDDS>

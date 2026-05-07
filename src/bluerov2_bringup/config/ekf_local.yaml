@@ -1,0 +1,29 @@
+/**:
+    ros__parameters:
+        frequency: 10.0
+        sensor_timeout: 5.0
+        two_d_mode: true
+        publish_tf: true
+
+        odom_frame: odom
+        base_link_frame: base_link
+        world_frame: odom
+
+        pose0: /tag_3/position_odom
+        pose0_config: [true,  true,  false,
+                    false, false, true,
+                    false, false, false,
+                    false, false, false,
+                    false, false, false]
+        pose0_differential: false #novo!!!! prije bilo false
+        pose0_relative: false
+        imu0: imu/data
+        imu0_config: [false, false, false,
+                      false, false, false,
+                      false, false, false,
+                      true,  true,  true,
+                      false, false, false]
+        imu0_differential: false
+        imu0_relative: false
+        imu0_queue_size: 10
+        imu0_remove_gravitational_acceleration: true
