@@ -1,0 +1,26 @@
+------------------------------------------------------------------------------------------------------------------------------------------
+pokretanje dinamike za snimanje mape:
+------------------------------------------------------------------------------------------------------------------------------------------
+
+sudo socat -d -d PTY,raw,echo=0,link=/tmp/micron tcp:192.168.2.2:5555,nodelay,forever
+
+ros2 launch drivers_sonar_tritech micron_sonar_node.launch.py
+
+ros2 launch bluerov2_bringup gamepad.launch.py
+
+ros2 run tf2_ros static_transform_publisher \
+  --x 0.15 --y 0.10 --z 0.10 \
+  --roll 0 --pitch 0 --yaw 0 \
+  --frame-id base_link --child-frame-id sonar_frame
+
+ros2 run robot_localization ekf_node   --ros-args --params-file /root/ros2_ws/src/bluerov2_bringup/config/ekf_local.yaml
+
+ros2 run slam_toolbox async_slam_toolbox_node   --ros-args   --params-file /root/ros2_ws/mapper_params_online_async.yaml
+
+ros2 run sonar_pipeline pose_remap
+
+ros2 run sonar_pipeline pointcloud_to_laserscan_full_circle
+
+rviz2
+
+------------------------------------------------------------------------------------------------------------------------------------------

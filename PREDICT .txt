@@ -1,0 +1,67 @@
+PREDICT (između skenova):
+  IMU: a + bias + šum
+       ↓ integracija
+  EKF: "mislim da sam na (7.2, 3.1), yaw=45°"
+  → ali greška raste svake sekunde!
+
+        robot stane
+             ↓
+
+CORRECT (novi scan):
+  sonar napravi full 360° scan
+       ↓
+  slam_toolbox usporedi novi scan s mapom
+  "ovaj zid je ovdje, ovaj tamo..."
+       ↓
+  "EKF je rekao (7.2, 3.1) ali scan matching kaže (6.8, 3.3)"
+       ↓
+  korigira map→odom TF
+  akumulira nove točke na ispravnu poziciju
+  
+  
+  
+  -------------------------------------------------------------------------------------------------------------------------
+  
+  
+## Tvoj finalni pipeline
+```
+START scan (robot na dnu, miran)
+    ↓
+slam_toolbox: inicijalna mapa
+    ↓
+robot se diže + kreće (depth hold)
+    EKF integrira poziciju
+    ↓
+robot staje, spušta se, pada na dno
+    čeka da se slegne (~1-2 sek)
+    ↓
+novi full circle scan
+    ↓
+slam_toolbox:
+  "EKF kaže bio sam ovdje"
+  "scan kaže zapravo sam ovdje" ← ispravlja
+  akumulira nove točke
+    ↓
+ponovi
+
+-------------------------------------------------
+START scan (robot na dnu, miran)
+    ↓
+ekd
+    ↓
+robot se digne + kreće (depth hold)
+    Kamera vidi AprilTag na ROV-u
+    → publishe poziciju kontinuirano (30Hz)
+    → converter node publishe map→base_link TF
+    ↓
+robot staje, spušta se, pada na dno
+    čeka da se slegne (~1-2 sek)
+    ↓
+novi full circle scan
+    ↓
+slam_toolbox:
+  "kamera kaže bio sam ovdje (x=2.3, y=1.1, yaw=45°)"
+  "scan kaže zapravo sam ovdje" ← ispravlja ako treba
+  akumulira nove točke
+    ↓
+ponovi

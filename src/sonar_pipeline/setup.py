@@ -31,14 +31,9 @@ setup(
         'console_scripts': [
             'pc_converter = sonar_pipeline.pc_to_pc2_converter:main',
             'sonar_chunker = sonar_pipeline.sonar_chunker_node:main',
-            'sonar_continous = sonar_pipeline.sonar_continous_map:main',
-            'sonar_wall_mapper = sonar_pipeline.sonar_wall_mapper:main',
-            'sonar_scan_assembler = sonar_pipeline.sonar_scan_assembler:main',
-            'pointcloud_to_laserscan = sonar_pipeline.pointcloud_to_laserscan_node:main',
-            'pointcloud_to_laserscan_2 = sonar_pipeline.pointcloud_to_laserscan_node_2:main',
             'pointcloud_to_laserscan_full_circle = sonar_pipeline.pointcloud_to_laserscan_full_circle:main',
-            'pose_to_tf = sonar_pipeline.pose_to_tf:main',
-            'pose_remap = sonar_pipeline.pose_remap:main'
+            'pose_remap = sonar_pipeline.pose_remap:main',
+            'camera_map_odom = sonar_pipeline.camera_map_odom:main'
         ],
     },
 )

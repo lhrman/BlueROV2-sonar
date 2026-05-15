@@ -56,8 +56,8 @@ class PointCloudToLaserScan(Node):
         self.sub = self.create_subscription(
             PointCloud, '/micron_sonar/point_cloud', self.pc_callback, 10)
         self.pub = self.create_publisher(LaserScan, '/scan', 10)
-        #self.initialpose_pub = self.create_publisher(
-        #    PoseWithCovarianceStamped, '/initialpose', 10)
+        self.initialpose_pub = self.create_publisher(
+            PoseWithCovarianceStamped, '/initialpose', 10)
 
         self.create_subscription(UInt16, '/bluerov2/rc/forward', self.forward_cb, 10)
         self.create_subscription(UInt16, '/bluerov2/rc/lateral', self.lateral_cb, 10)
@@ -157,7 +157,7 @@ class PointCloudToLaserScan(Node):
                         f"| Smjer: {'→ (+)' if new_direction > 0 else '← (-)'}"
                     )
 
-                    if self.reversal_count >= 2:
+                    if self.reversal_count >= 4:
                         valid_count = int(np.sum(np.isfinite(self.accumulated_ranges)))
                         self.get_logger().info(
                             f"Puni ping-pong završen! Publishujem scan s "
@@ -183,6 +183,8 @@ class PointCloudToLaserScan(Node):
         if self.publish_on_every_update:
             self.publish_scan()
 
+
+    
     def publish_scan(self):
         if self.last_header is None:
             return
@@ -195,11 +197,11 @@ class PointCloudToLaserScan(Node):
             ip.pose.covariance[0] = 0.25
             ip.pose.covariance[7] = 0.25
             ip.pose.covariance[35] = 0.1
-            #self.initialpose_pub.publish(ip)            
-            #self.get_logger().info('Initialpose publishan.')
+
+            self.initialpose_pub.publish(ip)
+            self.get_logger().info('Initialpose publishan.')
         else:
-            pass
-            #self.get_logger().warn('Nema camera pose, initialpose nije publishan!')
+            self.get_logger().warn('Nema camera pose, initialpose nije publishan!')
 
         scan = LaserScan()
         scan.header = self.last_header

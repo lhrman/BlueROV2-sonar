@@ -31,6 +31,8 @@ setup(
             "video_modified = bluerov2_controller.video_modified:main",
             "position_controller = bluerov2_controller.position_controller:main",
             "hybrid_localizer = bluerov2_controller.hybrid_localizer:main",
+            'cmd_vel_to_pwm = bluerov2_controller.cmd_vel_to_pwm:main',
+            'camera_map_odom = sonar_pipeline.camera_map_odom:main'
         ],
     },
 )
